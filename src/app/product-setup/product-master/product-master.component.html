@@ -1,0 +1,99 @@
+<section class="container">
+
+  <ng-template #showFormTemplate>
+    <app-product-master-details [productData]="productData" [categoryData]="categoryData" (onSave)="onSave()" (onCancel)="onCancel()">
+      
+    </app-product-master-details>
+  </ng-template>
+
+  <ng-container *ngIf="showList;else showFormTemplate">
+  <div class="card">
+    <h2 style="text-align: center;">Product List</h2>
+    <ng-template #showLoadingTemplate>
+      <h3 style="text-align: center;">Loading Data... Please Wait</h3>
+    </ng-template>
+    <ng-container *ngIf="showTable;else showLoadingTemplate">
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field style="width: 100%;" appearance="outline">
+          <mat-label>Search in Products</mat-label>
+          <input matInput (keyup)="applyFilter($event)">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-3">
+      </div>
+      <div class="col-sm-3">
+        <button mat-flat-button color="primary" (click)="createProduct()" style="float: right;"> Add New </button>
+      </div>
+    </div>
+
+    <div class="resp-table">
+    <table mat-table [dataSource]="dataSource">
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> Id </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef> Category </th>
+        <td mat-cell *matCellDef="let element"> {{element.category}} </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let element"> <img src="{{element.image}}" alt="{{element.image}}" style="width:5rem"> </td>
+      </ng-container>
+      
+      <ng-container matColumnDef="rating">
+        <th mat-header-cell *matHeaderCellDef> Rating </th>
+        <td mat-cell *matCellDef="let element">
+          <table>
+            <tr>
+              <td>Rate</td>
+              <td>{{element.rating.rate}}</td>
+            </tr>
+            <tr>
+              <td>Count</td>
+              <td>{{element.rating.count}}</td>
+            </tr>
+          </table>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef> Options </th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;"> 
+            <button mat-flat-button color="primary" (click)="onUpdate(element)"> Update </button>
+            <button mat-flat-button color="warn" (click)="onDelete(element)" > Delete </button>
+        </td>
+      </ng-container>
+    </table>
+    </div>
+    
+
+  </ng-container>
+  <mat-paginator class="{{revealClass}}" [pageSizeOptions]="[5, 10, 20]"
+  showFirstLastButtons
+  aria-label="Select page of periodic elements">
+</mat-paginator>
+</div>
+  </ng-container>
+
+</section>

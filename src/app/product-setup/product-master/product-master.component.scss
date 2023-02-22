@@ -1,0 +1,44 @@
+.container,.card
+{
+  margin-top: 1rem;
+  padding: 1rem;
+}
+
+table .mat-table
+{
+  width: 100%;
+}
+
+.resp-table{
+  width: 100%;
+  overflow-x: auto;
+}
+
+td.mat-cell {
+  padding: 1rem;
+  border: 1px solid #000;
+ }
+
+ th.mat-header-cell {
+  padding: 1rem;
+  font-size: 1rem;
+  color: #000;
+  border: 1px solid #000;
+ }
+
+ td{
+  padding: 1rem;
+  border: 1px solid #000;
+ }
+
+ button{
+  margin: 0.5rem;
+ }
+
+ .classHide{
+  display: none;
+}
+
+.classShow{
+  display: block;
+}

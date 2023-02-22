@@ -1,0 +1,61 @@
+<div class="card">
+    <h2 style="text-align: center;">Product Form</h2>
+    <form [formGroup]="productForm"  (ngSubmit)="onSubmit()">
+    <div class="row">
+        <div class="col-sm-4">
+          <mat-label>Title</mat-label>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <input matInput formControlName="title" placeholder="Product Title">
+            <mat-error *ngIf="productForm.controls['title'].hasError('required')">This field is mandatory.</mat-error>
+            <mat-error *ngIf="productForm.controls['title'].hasError('maxlength')">Maximum 250 characters.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <mat-label>Description</mat-label>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <input matInput formControlName="description" placeholder="Product Info">
+            <mat-error *ngIf="productForm.controls['description'].hasError('maxlength')">Maximum 250 characters.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <mat-label>Price</mat-label>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <input matInput type="number" [min]="0" formControlName="price">
+            <mat-error *ngIf="productForm.controls['price'].hasError('required')">This field is mandatory.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <mat-label>Image</mat-label>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <input matInput formControlName="image" placeholder="Product Image Url">
+            <mat-error *ngIf="productForm.controls['image'].hasError('required')">This field is mandatory.</mat-error>
+            <mat-error *ngIf="productForm.controls['image'].hasError('maxlength')">Maximum 250 characters.</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-sm-4">
+          <mat-label>Category</mat-label>
+          <mat-form-field style="width: 100%;" appearance="outline">
+            <mat-select formControlName="category">
+              <mat-option value=''>Select</mat-option>
+              <ng-container *ngIf="categoryData && categoryData.length">
+                <mat-option [value]="cName" *ngFor="let cName of categoryData">{{cName}}</mat-option>
+              </ng-container>
+          </mat-select>
+          <mat-error *ngIf="productForm.controls['category'].hasError('required')">This field is mandatory.</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" style="text-align: center;">
+        
+        <div class="col-sm-4">
+          <button mat-raised-button type="button" color="warn" (click)="onBack()">Back</button>
+      </div>
+        <div class="col-sm-4">
+            <button mat-raised-button color="primary" type="submit" [disabled]="submitDisabled">Submit </button>
+        </div>
+        <div class="col-sm-4" *ngIf="resetBtn">
+          <button mat-raised-button type="button" color="accent" (click)="onReset()">Reset</button>
+      </div>
+      </div>
+    </form>
+</div>
